@@ -47,7 +47,6 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [
           'vue-style-loader',
           'css-loader'

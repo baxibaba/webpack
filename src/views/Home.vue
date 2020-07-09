@@ -2,7 +2,7 @@
   <div class="my">
     <!-- <div class="line"></div> -->
     <h1>八喜🇧🇷</h1>
-
+    <div v-dir1 ></div>
     <header>
       <div class="img-box">
         <img
@@ -37,14 +37,13 @@
       <router-link to="/child">
         <div>child</div>
       </router-link>
-      <el-input v-model="input" placeholder="请输入内容"></el-input>
-      <el-input-number
+      <el-input v-model="num" placeholder="请输入内容"></el-input>
+      <el-input
         v-model="num"
         @change="handleChange"
-        :min="1"
-        :max="10"
         label="描述文字"
-      ></el-input-number>
+      ></el-input>
+      {{num | validate(that)}}
     </div>
 
     <div class="footer">
@@ -60,12 +59,56 @@
 </template>
 <script>
 export default {
+
   data() {
     return {
+      that: this,
       state: true, // 动画的选择状态
       num: 1,
       input: ''
     }
+  },
+  // 自定义指令
+  directives: {
+    dir1: {
+      inserted(el) {
+        console.log('el', el)
+        console.log('argument', arguments)
+        el.style.width = '200px'
+        el.style.height = '200px'
+        el.style.background = 'red'
+      }
+    }
+  },
+  // 过滤器
+  filters: {
+    validate: function (value, that) {
+      console.log(this, 'this')
+
+      console.log(value)
+      value = +value
+      console.log('Var', value)
+
+      const regNum = /^(-?\d+)(\.\d+)?$/ // 数字
+      const reg = /^\d+(?:\.\d{1,2})?$/ // 2位小数
+      if (!regNum.test(value)) {
+        console.log('金额只能为数字，请重新输入')
+      } else {
+        if (value > 0) {
+          if (!reg.test(value)) {
+            console.log('金额只能保留两位小数，请重新输入')
+            that.$message({ type: 'waring', message: '金额只能保留两位小数，请重新输入' })
+            console.log('that', that)
+          } else {
+            console.log('c成功了呢')
+            // that.$message({ type: 'error', message: '金额只能保留两位小数，请重新输入' })
+          }
+        } else {
+          console.log('金额必须大于0，请重新输入')
+          that.$message({ type: 'success', message: '金额必须大于0，请重新输入' })
+        }
+      }
+    },
   },
   methods: {
     // 动画暂停或者运行
