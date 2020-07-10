@@ -2,7 +2,7 @@
   <div class="my">
     <!-- <div class="line"></div> -->
     <h1>八喜🇧🇷</h1>
-    <div v-dir1 ></div>
+    <!-- <div v-dir1 ></div> -->
     <header>
       <div class="img-box">
         <img

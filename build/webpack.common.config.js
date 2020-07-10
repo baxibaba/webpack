@@ -85,13 +85,14 @@ module.exports = {
         query: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
+        },
       },
       {
         test: /\.svg(\?\S*)?$/,
         loader: 'url-loader',
         query: {
           limit: 10000,
+          esModule: false,
           name: path.posix.join('static', '[name].[hash:7].[ext]')
         }
       },
@@ -100,7 +101,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           // limit: 10000,
-          publicPath:'../../',
+          esModule: false,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
 
         }
